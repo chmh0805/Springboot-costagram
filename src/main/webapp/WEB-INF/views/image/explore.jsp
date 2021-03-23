@@ -23,6 +23,7 @@
 				<img src="/images/profile.jpeg" alt="">
 			</div>
 		</div>
+	</div>
 </main>
 
 <%@ include file="../layout/footer.jsp"%>

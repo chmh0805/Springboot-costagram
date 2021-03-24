@@ -1,4 +1,4 @@
-package com.hyuk.costagram.web.auth.dto;
+package com.hyuk.costagram.web.dto.auth;
 
 import com.hyuk.costagram.domain.user.User;
 

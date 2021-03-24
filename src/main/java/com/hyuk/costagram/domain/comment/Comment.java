@@ -43,5 +43,5 @@ public class Comment {
 	private User user;
 	
 	@CreationTimestamp
-	private Timestamp creationDate;
+	private Timestamp createDate;
 }

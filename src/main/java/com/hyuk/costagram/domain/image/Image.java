@@ -50,5 +50,5 @@ public class Image {
 	private List<Comment> comments;
 	
 	@CreationTimestamp
-	private Timestamp creationDate;
+	private Timestamp createDate;
 }

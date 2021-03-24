@@ -29,12 +29,12 @@ public class Follow {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToOne
 	@JoinColumn(name = "fromUserId")
+	@ManyToOne
 	private User fromUser; // --가
 	
-	@ManyToOne
 	@JoinColumn(name = "toUserId")
+	@ManyToOne
 	private User toUser; // --를 팔로우
 	
 	@CreationTimestamp

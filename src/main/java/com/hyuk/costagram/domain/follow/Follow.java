@@ -1,7 +1,6 @@
-package com.hyuk.costagram.domain.image;
+package com.hyuk.costagram.domain.follow;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,13 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.hyuk.costagram.domain.comment.Comment;
-import com.hyuk.costagram.domain.likes.Likes;
-import com.hyuk.costagram.domain.tag.Tag;
 import com.hyuk.costagram.domain.user.User;
 
 import lombok.AllArgsConstructor;
@@ -28,27 +23,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Image {
+public class Follow {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private String caption;
-	private String postImageUrl;
+	@ManyToOne
+	@JoinColumn(name = "fromUserId")
+	private User fromUser; // --가
 	
 	@ManyToOne
-	@JoinColumn(name = "userId")
-	private User user;
-	
-	@OneToMany(mappedBy = "image")
-	private List<Tag> tags;
-	
-	@OneToMany(mappedBy = "image")
-	private List<Likes> likes;
-	
-	@OneToMany(mappedBy = "image")
-	private List<Comment> comments;
+	@JoinColumn(name = "toUserId")
+	private User toUser; // --를 팔로우
 	
 	@CreationTimestamp
-	private Timestamp creationDate;
+	private Timestamp createDate;
 }

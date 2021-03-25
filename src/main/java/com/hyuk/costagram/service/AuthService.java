@@ -1,9 +1,8 @@
 package com.hyuk.costagram.service;
 
-import javax.transaction.Transactional;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hyuk.costagram.domain.user.User;
 import com.hyuk.costagram.domain.user.UserRepository;

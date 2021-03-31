@@ -24,7 +24,9 @@
     <link rel="stylesheet" href="/css/profileSetting.css">
 	<link rel="shortcut icon" href="/images/insta.svg">
 	
-<!-- Fontawesome -->
+	<!-- 제이쿼리 -->
+	<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+	<!-- Fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap"

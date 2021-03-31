@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hyuk.costagram.domain.user.User;
 
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class Follow {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@JsonIgnoreProperties({"images"})
 	@JoinColumn(name = "fromUserId")
 	@ManyToOne
 	private User fromUser; // --가

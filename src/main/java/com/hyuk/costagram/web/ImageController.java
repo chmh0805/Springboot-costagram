@@ -4,9 +4,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.hyuk.costagram.config.auth.PrincipalDetails;
 import com.hyuk.costagram.service.ImageService;
+import com.hyuk.costagram.web.dto.image.ImageReqDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,5 +35,12 @@ public class ImageController {
 	@GetMapping("/image/upload")
 	public String upload() {
 		return "image/upload";
+	}
+	
+	@PostMapping("/image")
+	public String image(ImageReqDto imageReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+		imageService.사진업로드(imageReqDto, principalDetails);
+		
+		return "redirect:/user/" + principalDetails.getUser().getId();
 	}
 }

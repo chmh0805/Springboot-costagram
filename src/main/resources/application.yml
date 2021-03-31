@@ -37,4 +37,4 @@ spring:
       password: 1234   
 
 file:
-  path: C:/reactwork/costagram/src/main/resources/upload
+  path: D:\workspace\springwork\Springboot-costagram\src\main\resources\upload\

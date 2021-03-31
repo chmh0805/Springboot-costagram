@@ -14,6 +14,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.hyuk.costagram.domain.comment.Comment;
 import com.hyuk.costagram.domain.likes.Likes;
 import com.hyuk.costagram.domain.tag.Tag;
@@ -37,6 +38,7 @@ public class Image {
 	private String caption;
 	private String postImageUrl;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "userId")
 	private User user;

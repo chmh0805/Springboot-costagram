@@ -22,19 +22,20 @@ public class UserService {
 	
 	@Transactional(readOnly = true)
 	public UserProfileRespDto 회원프로필(int principalId, int userId) {
+		
 		User userEntity = userRepository.findById(userId).orElseThrow(() -> {
 			throw new IllegalArgumentException();});
-		boolean mFollowState = false;
 		
-		if (followRepository.isFollowing(principalId, userId) == 1) {
-			mFollowState = true;
+		boolean followState = false;	
+		if (followRepository.mFollowState(principalId, userId) == 1) {
+			followState = true;
 		}
 		
 		List<Image> images = userEntity.getImages();
 		
 		UserProfileRespDto userProfileRespDto = UserProfileRespDto.builder()
 				.user(userEntity)
-				.followState(mFollowState)
+				.followState(followState)
 				.followCount(followRepository.mFollowCount(userId))
 				.imageCount(images.size())
 				.build();

@@ -32,7 +32,21 @@ public class ImageService {
 	
 	@Transactional(readOnly = true)
 	public List<Image> 피드이미지(int principalId) {
-		return imageRepository.mFeed(principalId);
+		
+		List<Image> images = imageRepository.mFeed(principalId);
+		images.forEach((image) -> {
+			
+			int likeCount = image.getLikes().size();
+			image.setLikeCount(likeCount);
+			
+			image.getLikes().forEach((like) -> {
+				if (like.getUser().getId() == principalId) {
+					image.setLikeState(true);
+				}
+			});
+		});
+		
+		return images;
 	}
 	
 	@Transactional

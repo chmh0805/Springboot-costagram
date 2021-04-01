@@ -3,11 +3,16 @@ package com.hyuk.costagram.web;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hyuk.costagram.config.auth.PrincipalDetails;
 import com.hyuk.costagram.service.ImageService;
+import com.hyuk.costagram.service.LikesService;
+import com.hyuk.costagram.web.dto.CommonRespDto;
 import com.hyuk.costagram.web.dto.image.ImageReqDto;
 
 import lombok.RequiredArgsConstructor;
@@ -17,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class ImageController {
 
 	private final ImageService imageService;
+	private final LikesService likesService;
 	
 	@GetMapping({"/", "/image/feed"})
 	public String feed(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
@@ -42,5 +48,17 @@ public class ImageController {
 		imageService.사진업로드(imageReqDto, principalDetails);
 		
 		return "redirect:/user/" + principalDetails.getUser().getId();
+	}
+	
+	@PostMapping("/image/{imageId}/likes")
+	public @ResponseBody CommonRespDto<?> like(@PathVariable int imageId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+		likesService.좋아요(imageId, principalDetails.getUser().getId());
+		return new CommonRespDto<>(1, null);
+	}
+	
+	@DeleteMapping("/image/{imageId}/likes")
+	public @ResponseBody CommonRespDto<?> unLike(@PathVariable int imageId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+		likesService.싫어요(imageId, principalDetails.getUser().getId());
+		return new CommonRespDto<>(1, null);
 	}
 }

@@ -32,6 +32,9 @@ public class UserService {
 		}
 		
 		List<Image> images = userEntity.getImages();
+		images.forEach((image) -> {
+			image.setLikeCount(image.getLikes().size());
+		});
 		
 		UserProfileRespDto userProfileRespDto = UserProfileRespDto.builder()
 				.user(userEntity)

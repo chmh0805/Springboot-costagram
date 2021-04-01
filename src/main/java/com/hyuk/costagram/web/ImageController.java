@@ -1,5 +1,7 @@
 package com.hyuk.costagram.web;
 
+import java.util.List;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import com.hyuk.costagram.config.auth.PrincipalDetails;
 import com.hyuk.costagram.service.ImageService;
 import com.hyuk.costagram.service.LikesService;
 import com.hyuk.costagram.web.dto.CommonRespDto;
+import com.hyuk.costagram.web.dto.explore.ExploreRespDto;
 import com.hyuk.costagram.web.dto.image.ImageReqDto;
 
 import lombok.RequiredArgsConstructor;
@@ -34,7 +37,9 @@ public class ImageController {
 	}
 	
 	@GetMapping("/image/explore")
-	public String explore() {
+	public String explore(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
+		List<ExploreRespDto> dtos = imageService.탐색이미지(principalDetails.getUser().getId());
+		model.addAttribute("dtos", dtos);
 		return "image/explore";
 	}
 	

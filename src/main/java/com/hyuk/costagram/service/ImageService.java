@@ -6,6 +6,10 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import org.qlrm.mapper.JpaResultMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +20,7 @@ import com.hyuk.costagram.domain.image.ImageRepository;
 import com.hyuk.costagram.domain.tag.Tag;
 import com.hyuk.costagram.domain.tag.TagRepository;
 import com.hyuk.costagram.utils.TagUtils;
+import com.hyuk.costagram.web.dto.explore.ExploreRespDto;
 import com.hyuk.costagram.web.dto.image.ImageReqDto;
 
 import lombok.RequiredArgsConstructor;
@@ -26,6 +31,7 @@ public class ImageService {
 
 	private final ImageRepository imageRepository;
 	private final TagRepository tagRepository;
+	private final EntityManager em;
 	
 	@Value("${file.path}") // @Value("$()") 라고 하면 application.yml 파일에 접근할 수 있다. 
 	private String uploadFolder;
@@ -47,6 +53,24 @@ public class ImageService {
 		});
 		
 		return images;
+	}
+	
+	@Transactional(readOnly = true)
+	public List<ExploreRespDto> 탐색이미지(int principalId) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("SELECT i.id imageId, i.userId, i.postImageUrl, count(l.imageId) likeCount ");
+		sb.append("FROM image i ");
+		sb.append("INNER JOIN likes l ");
+		sb.append("ON i.id = l.imageId ");
+		sb.append("WHERE i.userId != ? ");
+		sb.append("GROUP BY i.id ORDER BY count(l.imageId) DESC");
+		
+		Query query = em.createNativeQuery(sb.toString())
+						.setParameter(1, principalId);
+		
+		JpaResultMapper mapper = new JpaResultMapper();
+		List<ExploreRespDto> dtos = mapper.list(query, ExploreRespDto.class);
+		return dtos;
 	}
 	
 	@Transactional

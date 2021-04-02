@@ -1,3 +1,35 @@
+// 회원정보변경
+function update(userId) {
+  let name = document.querySelector("#name").value.trim();
+  let password = document.querySelector("#password").value.trim();
+  let website = document.querySelector("#website").value.trim();
+  let bio = document.querySelector("#bio").value.trim();
+  let phone = document.querySelector("#phone").value.trim();
+  let gender = document.querySelector("#gender").value.trim();
+  
+  let data = {
+	  password: password,
+	  name: name,
+	  website: website,
+	  bio: bio,
+	  phone: phone,
+	  gender: gender
+  }
+  
+  $.ajax({
+	  url: "http://localhost:8080/user",
+	  method: "PUT",
+	  data: JSON.stringify(data),
+	  contentType: "application/json; charset=utf-8",
+	  dataType: "json"
+  }).done((res) => {
+	  if (res.statusCode === 1) {
+		  location.href = 'http://localhost:8080/user/'+userId;
+	  }
+  }).fail((err) => {
+	  alert('에러가 발생했습니다.');
+  })
+};
 
 // 구독자 정보 보기
 document.querySelector("#subscribeBtn").onclick = (e) => {
@@ -30,7 +62,7 @@ document.querySelector("#subscribeBtn").onclick = (e) => {
 function makeSubscribeInfo(dto) {
 	let item = `<div class="follower__item" id="follow-${dto.userId}">`;
 	item += `<div class="follower__img">`;
-	item += `<img src="/images/profile.jpeg" alt="">`;
+	item += `<img src="/upload/${dto.profileImageUrl}" alt="" onerror="this.src='/images/person.jpg'">`;
 	item += `</div>`;
 	item += `<div class="follower__text">`;
 	item += `<h2>${dto.username}</h2>`;
@@ -143,4 +175,3 @@ document.querySelector(".modal-image").addEventListener("click", (e) => {
     document.querySelector(".modal-image").style.display = "none";
   }
 });
-

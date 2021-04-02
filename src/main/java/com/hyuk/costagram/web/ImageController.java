@@ -32,7 +32,7 @@ public class ImageController {
 		// ssar이 누구를 팔로우 했는지 정보를 알아야 함. -> cos
 		// ssar -> image1(cos), image2(cos)
 		model.addAttribute("images", imageService.피드이미지(principalDetails.getUser().getId()));
-		
+
 		return "image/feed";
 	}
 	

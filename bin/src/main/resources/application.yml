@@ -1,0 +1,46 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: utf-8
+      enabled: true
+    
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+      
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/costa?serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true
+    username: costa
+    password: costa1234
+    
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+      
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5MB
+
+  security:
+    user:
+      name: test
+      password: 1234
+    oauth2:      client:        registration:          facebook:
+            client-id: 473713393668712
+            client-secret: 6eb2aee2af14b21e7804f30547ef3c3a
+            scope:
+            - email
+            - public_profile
+
+file:
+  path: D:\workspace\springwork\Springboot-costagram\src\main\resources\upload\

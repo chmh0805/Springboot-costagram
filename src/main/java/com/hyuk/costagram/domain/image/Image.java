@@ -15,6 +15,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hyuk.costagram.domain.comment.Comment;
 import com.hyuk.costagram.domain.likes.Likes;
 import com.hyuk.costagram.domain.tag.Tag;
@@ -38,17 +39,20 @@ public class Image {
 	private String caption;
 	private String postImageUrl;
 	
-	@JsonBackReference
+	@JsonIgnoreProperties({"images"})
 	@ManyToOne
 	@JoinColumn(name = "userId")
 	private User user;
 	
+	@JsonIgnoreProperties({"image"})
 	@OneToMany(mappedBy = "image")
 	private List<Tag> tags;
 	
+	@JsonIgnoreProperties({"image"})
 	@OneToMany(mappedBy = "image")
 	private List<Likes> likes;
 	
+	@JsonIgnoreProperties({"image"})
 	@OneToMany(mappedBy = "image")
 	private List<Comment> comments;
 	

@@ -49,7 +49,6 @@ public class User {
 	
 	private String role; // USER, ADMIN
 	
-	@JsonManagedReference
 	@OneToMany(mappedBy = "user")
 	private List<Image> images;
 	

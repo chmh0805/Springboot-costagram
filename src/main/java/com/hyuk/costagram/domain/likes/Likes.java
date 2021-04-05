@@ -13,6 +13,7 @@ import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hyuk.costagram.domain.image.Image;
 import com.hyuk.costagram.domain.user.User;
 
@@ -44,6 +45,7 @@ public class Likes {
 	@JoinColumn(name = "imageId")
 	private Image image;
 	
+	@JsonIgnoreProperties({"images"})
 	@ManyToOne
 	@JoinColumn(name = "userId")
 	private User user;

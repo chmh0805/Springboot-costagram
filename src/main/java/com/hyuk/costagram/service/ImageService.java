@@ -11,6 +11,8 @@ import javax.persistence.Query;
 
 import org.qlrm.mapper.JpaResultMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,9 +39,9 @@ public class ImageService {
 	private String uploadFolder;
 	
 	@Transactional(readOnly = true)
-	public List<Image> 피드이미지(int principalId) {
+	public Page<Image> 피드이미지(int principalId, Pageable pageable) {
 		
-		List<Image> images = imageRepository.mFeed(principalId);
+		Page<Image> images = imageRepository.mFeed(principalId, pageable);
 		images.forEach((image) -> {
 			
 			int likeCount = image.getLikes().size();
